@@ -1,0 +1,13 @@
+main page
+     about 
+     skills
+     work experience
+     contact-> email and phone number
+
+
+Work experience(which will be added in the form of projects in new page my work which will be disabled for now and will be created later).
+
+
+the whole website will have fully implemented 3d animations, transistions 
+color scheme will be according to the document/image provided
+profile picture will not be added
