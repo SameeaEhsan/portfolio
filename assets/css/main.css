@@ -1,7 +1,7 @@
 body {
-  background: var(--color-background);
+  background: linear-gradient(135deg, #f9f6f3 0%, #e6d3c2 100%);
   color: var(--color-text-main);
-  font-family: 'Segoe UI', 'Arial', sans-serif;
+  font-family: 'Lato', Arial, sans-serif;
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -10,18 +10,36 @@ body {
 header {
   background: var(--color-primary);
   color: var(--color-text-light);
-  padding: 2rem 0 1rem 0;
+  padding: 2.5rem 0 1.5rem 0;
   text-align: center;
   box-shadow: 0 2px 8px var(--color-muted);
+  letter-spacing: 0.08em;
+}
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.2em;
+}
+header h2 {
+  font-family: 'Lato', Arial, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 0;
+  letter-spacing: 0.15em;
+}
+
+.wavy-divider {
+  margin-bottom: -1.5rem;
+  line-height: 0;
 }
 
 main {
   max-width: 900px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: var(--color-accent);
+  margin: 2.5rem auto;
+  padding: 2.5rem 1.5rem 2rem 1.5rem;
+  background: transparent;
   border-radius: 1.5rem;
-  box-shadow: 0 4px 24px var(--color-muted);
 }
 
 section {
@@ -31,4 +49,124 @@ section {
 h1, h2, h3 {
   font-family: 'Georgia', serif;
   margin: 0.5em 0;
+}
+
+/* Card container for sections */
+.card {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 32px 0 rgba(191,161,140,0.13);
+  padding: 2.2rem 2.7rem;
+  margin-bottom: 2.7rem;
+  border-left: 6px solid var(--color-primary);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+.card:hover {
+  box-shadow: 0 8px 40px 0 rgba(191,161,140,0.22);
+  border-left: 6px solid #e6d3c2;
+}
+
+.divider {
+  border-bottom: 2px dashed var(--color-accent);
+  margin: 1.7rem 0;
+}
+
+/* Skills section */
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.skill-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.08rem;
+  font-family: 'Lato', Arial, sans-serif;
+}
+.skill-bar {
+  background: var(--color-muted);
+  border-radius: 1rem;
+  width: 55%;
+  height: 0.8rem;
+  margin-left: 1.2rem;
+  overflow: hidden;
+  box-shadow: 0 1px 6px 0 rgba(191,161,140,0.13);
+}
+.skill-level {
+  background: linear-gradient(90deg, #bfa18c 0%, #e6d3c2 100%);
+  height: 100%;
+  border-radius: 1rem;
+  transition: width 1s cubic-bezier(.25,.8,.25,1);
+  box-shadow: 0 1px 4px 0 rgba(191,161,140,0.18);
+}
+
+/* Work section */
+.work-item {
+  margin-bottom: 1.2rem;
+}
+.work-duration {
+  color: var(--color-secondary);
+  font-weight: bold;
+}
+.work-role {
+  color: var(--color-text-main);
+  font-size: 1rem;
+}
+
+/* Contact section */
+.contact-list {
+  list-style: none;
+  padding: 0;
+}
+.contact-list li {
+  margin-bottom: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 1.08rem;
+}
+.contact-icon {
+  font-size: 1.25rem;
+  color: var(--color-primary);
+}
+
+/* Education details */
+.education-details {
+  font-size: 1.05rem;
+  color: var(--color-secondary);
+  margin-bottom: 0.5rem;
+}
+.edu-years {
+  font-weight: bold;
+}
+.edu-uni {
+  font-weight: 600;
+}
+
+/* Section headings */
+.card h3 {
+  color: var(--color-secondary);
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+  font-size: 1.6rem;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 700px) {
+  main {
+    padding: 1rem 0.2rem;
+  }
+  .card {
+    padding: 1.2rem 0.7rem;
+  }
+  header h1 {
+    font-size: 2.1rem;
+  }
+  .card h3 {
+    font-size: 1.2rem;
+  }
 }

@@ -12,4 +12,21 @@ document.addEventListener('DOMContentLoaded', function() {
   loadSection('skills', 'components/skills.html');
   loadSection('work', 'components/work.html');
   loadSection('contact', 'components/contact.html');
+
+  // Animate cards in when loaded
+  setTimeout(() => {
+    const cards = document.querySelectorAll('.card');
+    if (window.gsap && cards.length) {
+      gsap.fromTo(cards, {
+        y: 60,
+        opacity: 0
+      }, {
+        y: 0,
+        opacity: 1,
+        duration: 1.1,
+        stagger: 0.18,
+        ease: 'power3.out'
+      });
+    }
+  }, 500);
 });
