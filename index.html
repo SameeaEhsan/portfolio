@@ -12,6 +12,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
   <style>
+    html, body {
+      overflow-x: hidden !important;
+      max-width: 100vw;
+    }
+    .navbar, .navbar-container, .sidebar {
+      box-sizing: border-box;
+      max-width: 100vw;
+    }
     /* Glassmorphism Navigation Bar */
     nav.navbar {
       position: fixed;
@@ -40,6 +48,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 1.1rem 2rem;
+      width: 100%;
     }
     .navbar-logo {
       font-family: 'Playfair Display', serif;
@@ -101,6 +110,16 @@
       }
       main {
         padding-top: 6.5rem;
+      }
+    }
+    @media (max-width: 900px) {
+      .navbar-container {
+        padding: 0.7rem 1rem;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100vw;
+        max-width: 100vw;
       }
     }
 
@@ -307,19 +326,29 @@
     }
     @media (max-width: 900px) {
       .timeline {
-        width: 100%;
-        padding: 2rem 0;
+        width: 100vw;
+        padding: 0;
+        margin: 0;
+      }
+      .timeline::before {
+        display: none;
       }
       .timeline-item {
-        width: 100%;
+        max-width: 500px;
+        margin: 1.2rem auto;
         left: 0 !important;
         text-align: left !important;
-        padding: 2rem 0.5rem;
+        padding: 1.2rem 0;
         min-width: 0;
+        box-sizing: border-box;
+        width: auto;
       }
       .timeline-item::before {
-        left: -12px !important;
-        right: auto !important;
+        display: none;
+      }
+      .timeline-item.left, .timeline-item.right {
+        left: 0 !important;
+        text-align: left !important;
       }
     }
     @media (max-width: 600px) {
@@ -340,6 +369,94 @@
         font-size: 0.95rem;
       }
     }
+
+    /* Hamburger and sidebar styles */
+    .hamburger {
+      display: none;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      z-index: 1101;
+      margin-left: 0;
+    }
+    body.sidebar-open, html.sidebar-open {
+      overflow-x: hidden !important;
+    }
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -270px;
+      width: 250px;
+      max-width: 100vw;
+      height: 100vh;
+      background: rgba(40, 30, 20, 0.97);
+      box-shadow: -2px 0 16px rgba(0,0,0,0.18);
+      z-index: 1102;
+      transition: right 0.3s cubic-bezier(.4,2,.6,1);
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      min-width: 0;
+    }
+    .sidebar.open {
+      right: 0;
+    }
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 1.2rem 1.5rem 1.2rem 1.2rem;
+      border-bottom: 1px solid #e6d3c2;
+    }
+    .close-sidebar {
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+    .sidebar-links {
+      list-style: none;
+      padding: 2rem 1.5rem;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .sidebar-links a {
+      color: #fff;
+      font-size: 1.1rem;
+      text-decoration: none;
+      font-family: 'Lato', Arial, sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .sidebar-links a:hover {
+      color: #e6d3c2;
+    }
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.25);
+      z-index: 1100;
+    }
+    .sidebar.open ~ .sidebar-overlay {
+      display: block;
+    }
+    @media (max-width: 900px) {
+      .navbar-links {
+        display: none;
+      }
+      .hamburger {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body>
@@ -353,7 +470,20 @@
         <li><a href="#experience">Experience</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <div class="hamburger" id="hamburger-menu" aria-label="Open menu" tabindex="0">&#9776;</div>
     </div>
+    <div class="sidebar" id="sidebar-menu">
+      <div class="sidebar-header">
+        <span class="close-sidebar" id="close-sidebar" aria-label="Close menu">&times;</span>
+      </div>
+      <ul class="sidebar-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
   </nav>
   <!-- Hero Section -->
   <section class="hero-section" id="hero" style="background: linear-gradient(rgba(40,30,20,0.45), rgba(40,30,20,0.45)), url('https://images.unsplash.com/photo-1591338459467-bd36100b07c2?q=80&w=2104&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center center / cover no-repeat;">
@@ -450,6 +580,33 @@
         });
       }, observerOptions);
       timelineItems.forEach(item => observer.observe(item));
+    });
+
+    // Sidebar menu toggle
+    const hamburger = document.getElementById('hamburger-menu');
+    const sidebar = document.getElementById('sidebar-menu');
+    const closeSidebar = document.getElementById('close-sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    function openSidebar() {
+      sidebar.classList.add('open');
+      sidebarOverlay.style.display = 'block';
+      document.body.classList.add('sidebar-open');
+      document.documentElement.classList.add('sidebar-open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeSidebarMenu() {
+      sidebar.classList.remove('open');
+      sidebarOverlay.style.display = 'none';
+      document.body.classList.remove('sidebar-open');
+      document.documentElement.classList.remove('sidebar-open');
+      document.body.style.overflow = '';
+    }
+    hamburger.addEventListener('click', openSidebar);
+    closeSidebar.addEventListener('click', closeSidebarMenu);
+    sidebarOverlay.addEventListener('click', closeSidebarMenu);
+    // Close sidebar on nav link click (for smooth UX)
+    document.querySelectorAll('.sidebar-links a').forEach(link => {
+      link.addEventListener('click', closeSidebarMenu);
     });
   </script>
 </body>
