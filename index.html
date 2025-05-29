@@ -400,6 +400,37 @@
       loadSection('skills', 'components/skills.html');
       loadSection('experience', 'components/work.html');
       loadSection('contact', 'components/contact.html');
+
+      // Animate timeline cards on scroll
+      const observerOptions = {
+        threshold: 0.2
+      };
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      timelineItems.forEach(item => {
+        item.style.opacity = 0;
+        item.style.transform = item.classList.contains('left')
+          ? 'translateX(-60px)'
+          : 'translateX(60px)';
+      });
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            if (window.gsap) {
+              gsap.to(entry.target, {
+                opacity: 1,
+                x: 0,
+                duration: 1.1,
+                ease: 'power3.out'
+              });
+            } else {
+              entry.target.style.opacity = 1;
+              entry.target.style.transform = 'none';
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+      timelineItems.forEach(item => observer.observe(item));
     });
   </script>
 </body>
