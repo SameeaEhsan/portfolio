@@ -1,5 +1,6 @@
 body {
-  background: linear-gradient(135deg, #f9f6f3 0%, #e6d3c2 100%);
+  background: linear-gradient(135deg, #f9f6f3 0%, #e6d3c2 100%),
+    url('../images/back-ground.jpd') center center / cover no-repeat fixed;
   color: var(--color-text-main);
   font-family: 'Lato', Arial, sans-serif;
   margin: 0;
@@ -53,7 +54,7 @@ h1, h2, h3 {
 
 /* Card container for sections */
 .card {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.25);
   border-radius: 1.5rem;
   box-shadow: 0 4px 32px 0 rgba(191,161,140,0.13);
   padding: 2.2rem 2.7rem;
@@ -62,6 +63,9 @@ h1, h2, h3 {
   position: relative;
   overflow: hidden;
   transition: box-shadow 0.3s, border-color 0.3s;
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border: 1.5px solid rgba(255,255,255,0.35);
 }
 .card:hover {
   box-shadow: 0 8px 40px 0 rgba(191,161,140,0.22);
