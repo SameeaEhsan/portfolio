@@ -59,16 +59,22 @@
     }
     .navbar-links a {
       text-decoration: none;
-      color: var(--color-text-main);
       font-family: 'Lato', Arial, sans-serif;
       font-weight: 600;
       font-size: 1.08rem;
       letter-spacing: 0.04em;
       position: relative;
       transition: color 0.2s;
+      background: linear-gradient(45deg, #e6d3c2 60%, #bfa18c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
     }
     .navbar-links a:hover {
       color: var(--color-primary);
+      -webkit-text-fill-color: var(--color-primary);
+      background: none;
     }
     .navbar-links a::after {
       content: '';
@@ -176,7 +182,7 @@
     </div>
   </nav>
   <!-- Hero Section -->
-  <section class="hero-section" id="hero" style="background: linear-gradient(rgba(40,30,20,0.45), rgba(40,30,20,0.45)), url('assets/images/back-ground.jpg') center center / cover no-repeat;">
+  <section class="hero-section" id="hero" style="background: linear-gradient(rgba(40,30,20,0.45), rgba(40,30,20,0.45)), url('https://images.unsplash.com/photo-1591338459467-bd36100b07c2?q=80&w=2104&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center center / cover no-repeat;">
     <h1 class="hero-title">Sameea Ehsaan</h1>
     <div class="hero-subtitle">Fashion Designer &amp; Creative Visionary</div>
     <a class="hero-btn" href="#" tabindex="-1">View My Work</a>
