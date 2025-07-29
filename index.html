@@ -65,6 +65,7 @@
       display: flex;
       gap: 2.2rem;
       list-style: none;
+      align-items: center;
     }
     .navbar-links a {
       text-decoration: none;
@@ -97,6 +98,83 @@
     }
     .navbar-links a:hover::after {
       width: 100%;
+    }
+    
+    /* LinkedIn Button Styling */
+    .linkedin-btn {
+      display: inline-flex !important;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem !important;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%) !important;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(191, 161, 140, 0.3);
+      text-decoration: none !important;
+      font-weight: 600 !important;
+      font-size: 1.08rem !important;
+      letter-spacing: 0.04em;
+      -webkit-background-clip: initial !important;
+      -webkit-text-fill-color: white !important;
+      background-clip: initial !important;
+      color: white !important;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Lato', Arial, sans-serif !important;
+    }
+    
+    .linkedin-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .linkedin-btn:hover {
+      background: linear-gradient(135deg, var(--color-secondary) 0%, #5a402f 100%) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(124, 92, 74, 0.4);
+      color: white !important;
+      -webkit-text-fill-color: white !important;
+    }
+    
+    .linkedin-btn:hover::before {
+      left: 100%;
+    }
+    
+    .linkedin-btn:hover::after {
+      display: none !important;
+      width: 0 !important;
+    }
+    
+    .linkedin-icon {
+      font-size: 1.1em;
+    }
+    
+    /* Ensure navbar items are aligned */
+    .navbar-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+      align-items: center;
+    }
+    
+    .navbar-links li {
+      display: flex;
+      align-items: center;
+    }
+    
+    /* Sidebar LinkedIn Button */
+    .sidebar-links .linkedin-btn {
+      margin-top: 1rem;
+      justify-content: center;
+      width: calc(100% - 2rem);
+      margin-left: 1rem;
+      margin-right: 1rem;
     }
     main { padding-top: 0; }
     @media (max-width: 700px) {
@@ -469,6 +547,9 @@
         <li><a href="#skills">Skills</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="https://www.linkedin.com/in/sameeaehsan/" target="_blank" rel="noopener noreferrer" class="linkedin-btn">
+          LinkedIn
+        </a></li>
       </ul>
       <div class="hamburger" id="hamburger-menu" aria-label="Open menu" tabindex="0">&#9776;</div>
     </div>
@@ -481,6 +562,10 @@
         <li><a href="#skills">Skills</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="https://www.linkedin.com/in/sameeaehsan/" target="_blank" rel="noopener noreferrer" class="linkedin-btn">
+          <span class="linkedin-icon">💼</span>
+          LinkedIn
+        </a></li>
       </ul>
     </div>
     <div class="sidebar-overlay" id="sidebar-overlay"></div>
@@ -508,7 +593,7 @@
   <script src="assets/js/3d.js"></script>
   <script>
     // Smooth scrolling for navigation links
-    document.querySelectorAll('.navbar-links a').forEach(anchor => {
+    document.querySelectorAll('.navbar-links a:not([target="_blank"])').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
@@ -606,7 +691,15 @@
     sidebarOverlay.addEventListener('click', closeSidebarMenu);
     // Close sidebar on nav link click (for smooth UX)
     document.querySelectorAll('.sidebar-links a').forEach(link => {
-      link.addEventListener('click', closeSidebarMenu);
+      link.addEventListener('click', function(e) {
+        // Only close sidebar and prevent default for internal links
+        if (!this.hasAttribute('target') || this.getAttribute('target') !== '_blank') {
+          closeSidebarMenu();
+        } else {
+          // For external links, just close the sidebar but allow navigation
+          closeSidebarMenu();
+        }
+      });
     });
   </script>
 </body>
